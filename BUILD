@@ -21,3 +21,26 @@ cc_binary(
   srcs = ["format/format.cc"],
 )
 
+cc_binary(
+  name = "thread",
+  srcs = ["thread/thread.cc"],
+  linkopts = [
+              "-lboost_thread -lboost_system",
+             ],
+)
+
+cc_binary(
+  name = "thread_condition",
+  srcs = ["thread/thread_condition.cc"],
+  linkopts = [
+              "-lboost_thread -lboost_system",
+             ],
+)
+
+cc_binary(
+  name = "thread_tls",
+  srcs = ["thread/thread_TLS.cc"],
+  linkopts = [
+              "-lboost_thread -lboost_system",
+             ],
+)
