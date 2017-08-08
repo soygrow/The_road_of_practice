@@ -142,6 +142,7 @@ cc_binary(
 
 )
 
+# Unix-pro
 cc_binary(
   name = "thread_create",
   srcs = ["UnixPro/thread_create.cc"],
@@ -149,9 +150,17 @@ cc_binary(
           "//third_party/glog",
           "//third_party/gflags",
          ],
-  linkopts = [
-             ],
 )
+
+cc_binary(
+  name = "thread_exit",
+  srcs = ["UnixPro/thread_exit.cc"],
+  deps = [
+          "//third_party/glog",
+          "//third_party/gflags",
+         ],
+)
+
 
 # leetcode
 cc_binary(
