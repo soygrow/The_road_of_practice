@@ -97,3 +97,14 @@ cc_binary(
               "-lboost_thread -lboost_system",
              ],
 )
+
+cc_binary(
+  name = "thread_create",
+  srcs = ["UnixPro/thread_create.cc"],
+  deps = [
+          "//third_party/glog",
+          "//third_party/gflags",
+         ],
+  linkopts = [
+             ],
+)
