@@ -152,3 +152,15 @@ cc_binary(
   linkopts = [
              ],
 )
+
+# leetcode
+cc_binary(
+  name = "evaluate-reverse-polish-notation",
+  srcs = ["leetcode/evaluate-reverse-polish-notation.cc"],
+  deps = [
+          "//third_party/glog",
+          "//third_party/gflags",
+         ],
+  linkopts = [
+             ],
+)
