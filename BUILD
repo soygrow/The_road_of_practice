@@ -188,5 +188,8 @@ cc_binary(
           "//third_party/glog",
           "//third_party/gflags",
          ],
+  linkopts = [
+              "-lpthread",
+             ],
 )
 
