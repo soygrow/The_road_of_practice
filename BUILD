@@ -164,3 +164,14 @@ cc_binary(
   linkopts = [
              ],
 )
+
+cc_binary(
+  name = "max-points-on-a-line",
+  srcs = ["leetcode/max-points-on-a-line.cc"],
+  deps = [
+          "//third_party/glog",
+          "//third_party/gflags",
+         ],
+  linkopts = [
+             ],
+)
