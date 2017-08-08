@@ -161,8 +161,6 @@ cc_binary(
           "//third_party/glog",
           "//third_party/gflags",
          ],
-  linkopts = [
-             ],
 )
 
 cc_binary(
@@ -172,6 +170,14 @@ cc_binary(
           "//third_party/glog",
           "//third_party/gflags",
          ],
-  linkopts = [
-             ],
 )
+
+cc_binary(
+  name = "sort-list",
+  srcs = ["leetcode/sort-list.cc"],
+  deps = [
+          "//third_party/glog",
+          "//third_party/gflags",
+         ],
+)
+
