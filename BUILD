@@ -97,3 +97,48 @@ cc_binary(
               "-lboost_thread -lboost_system",
              ],
 )
+
+cc_binary(
+  name = "backtrack",
+  srcs = ["backtrack/backtrack.cc"],
+  copts = [
+           "-I/usr/local/include",
+           "-L/usr/local/lib",
+         ],
+  linkopts = [
+              "-lunwind",
+             ],
+)
+
+cc_binary(
+  name = "backtrace_thread",
+  srcs = ["backtrack/backtrace_thread.cc"],
+  copts = [
+           "-I/usr/local/include",
+           "-L/usr/local/lib",
+         ],
+  linkopts = [
+              "-lunwind -lboost_thread -lboost_system",
+             ],
+)
+
+cc_binary(
+  name = "crash",
+  srcs = ["crash.cc"],
+)
+
+cc_binary(
+  name = "test_const_string",
+  srcs = ["test_string/test_const_string.cc"],
+)
+
+cc_binary(
+  name = "epoll",
+  srcs = ["linux-api/epoll.cc"],
+  deps = [
+    "//third_party/glog",
+    "//third_party/gflags",
+  ],
+
+)
+
