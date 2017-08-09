@@ -10,6 +10,7 @@
 
 #include <iostream>
 
+#include "glog/logging.h"
 
 struct ListNode {
   int val;
@@ -17,43 +18,101 @@ struct ListNode {
   ListNode(int x) : val(x), next(NULL) {}
 };
 
-void sort(ListNode* root) {
-  if (root == NULL) {
-    return;
+
+ListNode* Merge(ListNode* forward, ListNode* backend) {
+  if (forward == NULL) {
+    return backend;
+  } else if (backend == NULL) {
+    return forward;
   }
-
-  int len = 1;
-  ListNode* last = root;
-  ListNode* start = root;
-  while (start->right != NULL) {
-    len ++;
-    last = start->right;
-    start = last;
+  
+  ListNode* head = NULL;
+  if (forward->val < backend->val) {
+    head = forward;
+    forward = forward->next;
+  } else {
+    head = backend;
+    backend = backend->next;
   }
-}
-
-void SortList(ListNode* first, ListNode* last, int len) {
-  if (node == NULL) {
-    return;
-  }
-
-  ListNode* mid = last;
-
-  int val = first->val;
-  for (int i = len-1; i > 0; i ++) {
-    if (mid->val < val) {
-      first->val = mid->val;
+  
+  ListNode* p = head;
+  while (forward != NULL && backend != NULL) {
+    if (forward->val < backend->val) {
+      p->next = forward;
+      forward = forward->next;
+    } else {
+      p->next = backend;
+      backend = backend->next;
     }
 
-    mid = mid->left;
+    p = p->next;
   }
+
+  if (forward != NULL) {
+    p->next = forward;
+  }
+  if (backend != NULL) {
+    p->next = backend;
+  }
+
+  return head;
 }
 
 
-    ListNode *sortList(ListNode *head) {
-      if (head == NULL) {}
+ListNode *sortList(ListNode *head) {
+  // Just one node
+  if (head == NULL || head->next == NULL) {
+    return head;
+  }
+
+  LOG(INFO) << " =================== ";
+
+  ListNode* p = head;
+  ListNode* q = head->next;
+  while (fast != NULL && fast->next != NULL) {
+    slow = slow->next;
+    fast = fast->next->next;
+  }
+
+  ListNode* left = sortList(slow->next);
+  slow->next = NULL;
+  ListNode* right = sortList(head);
+
+  {
+    ListNode* p = left;
+    ListNode* q = right;
+    while (p != NULL) {
+      std::cout << p->val << " ";
+      p = p->next;
     }
 
-int main (int argc, char** argv) {
+    while (q != NULL) {
+      std::cout << q->val << " ";
+      p = q->next;
+    }
+  }
 
+  sleep(2);
+
+  return Merge(left, right);
 }
+
+int main(int argc, char** argv) {
+  ListNode* head = new ListNode(5);
+  head->next = new ListNode(4);
+  head->next->next = new ListNode(3);
+  head->next->next->next = new ListNode(2);
+  head->next->next->next->next = new ListNode(2);
+
+  ListNode* new_head = sortList(head);
+
+  while (new_head != NULL) {
+    std::cout << new_head->val << " ";
+    new_head = new_head->next;
+  }
+
+  std::cout << std::endl;
+
+  return 0;
+}
+
