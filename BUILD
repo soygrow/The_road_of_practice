@@ -182,8 +182,8 @@ cc_binary(
 )
 
 cc_binary(
-  name = "sort-list",
-  srcs = ["leetcode/sort-list.cc"],
+  name = "sort_list",
+  srcs = ["leetcode/sort_list.cc"],
   deps = [
           "//third_party/glog",
           "//third_party/gflags",
