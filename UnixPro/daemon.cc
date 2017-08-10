@@ -4,7 +4,21 @@
  *
  * daemon.cc
  * ---------------------------------------------------------------------------
- * The file introduce daemon process.
+ * The file introduce daemon process. The reason of Daemon is that it can
+ * prevented the signals from the tty.
+ * 创建守护进程的原因是防止终端产生的一些信号让进程推出。
+ * 步骤：
+ * [1].将文件模式的屏蔽字设置为0;子进程会继承父进程的文件权限掩码，设为0,取消继承
+ *     文件权限掩码，增大守护进程的灵活性
+ * [2].第一次fork;保证创建的进程不是进程组组长，为了setsid服务
+ * [3].setsid新建一个会话，并担任该进程组组长; 有三个作用：1.让进程摆脱原进程的控制
+ *     2.让进程摆脱原进程组的控制 3.让进程摆脱原控制终端的控制
+ * [4].将当前工作目录改为根目录 chdir
+ * [5].关闭不需要的文件描述符
+ * [6].忽略SIGGHLD信号;守护进程需要忽略SIGGHLD信号，因为守护进程创建的子进程在
+ *     退出的时候会给父进程发送该信号，当父进程忽略该信号后，将它抛给init进程，
+ *     init进程会回收该进程，从而不会出现僵尸进程，如果父进程不等待子进程结束，
+ *     子进程将称为僵尸进程，如果父进程等待，将增加父进程的负担。这一步不是必须的。
  * ---------------------------------------------------------------------------
  */
 
@@ -45,7 +59,7 @@ void Daemon(const char* cmd) {
   // Make process to session leader.
   setsid();
 
-  // Ensure frture opens won't allocate controlling ttys
+  // Ensure furture opens won't allocate controlling ttys
   sa.sa_handler = SIG_IGN;
   sigemptyset(&sa.sa_mask);
   sa.sa_flags = 0;
@@ -90,10 +104,18 @@ void Daemon(const char* cmd) {
   
 }
 
+void test (int vec) {
+  std::cout << vec << std::endl;
 
+  return;
+}
 int main(int argc, char** argv) {
-  Daemon("daemon");
+  //Daemon("daemon");
+  std::vector<int> vec;
+  vec[0] = 10;
 
+  test(vec[1]);
+  
   sleep(100);
 
   return 0;
