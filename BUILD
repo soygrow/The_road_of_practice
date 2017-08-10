@@ -161,6 +161,15 @@ cc_binary(
          ],
 )
 
+cc_binary(
+  name = "daemon",
+  srcs = ["UnixPro/daemon.cc"],
+  deps = [
+          "//third_party/glog",
+          "//third_party/gflags",
+         ],
+)
+
 
 # leetcode
 cc_binary(
