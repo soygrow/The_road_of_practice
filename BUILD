@@ -202,3 +202,11 @@ cc_binary(
              ],
 )
 
+cc_binary(
+  name = "tree_traversal",
+  srcs = ["leetcode/tree_traversal.cc"],
+  deps = [
+          "//third_party/glog",
+          "//third_party/gflags",
+         ],
+)
