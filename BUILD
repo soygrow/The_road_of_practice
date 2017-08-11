@@ -210,3 +210,13 @@ cc_binary(
           "//third_party/gflags",
          ],
 )
+
+cc_binary(
+  name = "reorder_list",
+  srcs = ["leetcode/reorder_list.cc"],
+  deps = [
+          "//third_party/glog",
+          "//third_party/gflags",
+         ],
+)
+

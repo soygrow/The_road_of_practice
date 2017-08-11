@@ -16,15 +16,26 @@
 
 #include "glog/logging.h"
 
-void OrderList(ListNode* slow, ListNode* fast) {
-  if (fast == NULL) {
+struct ListNode {
+  int val;
+  ListNode *next;
+  ListNode(int x) : val(x), next(NULL) {}
+};
+
+void OrderList(ListNode** front, ListNode* back) {
+  if (back->next == NULL) {
     return;
   }
 
-  ListNode* node = fast->next;
-  if (node != NULL && node->next != NULL) {
-    OrderList(slow->next, node->next);
-  }
+  OrderList(front, back->next);
+
+  // Move last node to its location
+  ListNode* new_front = *front;
+  ListNode* node = back->next;
+  back->next = NULL;
+  node->next = new_front->next;
+  new_front->next = node;
+  *front = (*front)->next->next;
 }
 
 void reorderList(ListNode *head) {
@@ -32,9 +43,30 @@ void reorderList(ListNode *head) {
     return;
   }
 
-  reorderList();
+  // Compute the length of the list
+  ListNode* slow = head;
+  ListNode* fast = head;
+  while (fast != NULL && fast->next != NULL) {
+    slow = slow->next;
+    fast = fast->next->next;
+  }
+
+  OrderList(&head, slow);
 }
 
 int main() {
+  ListNode* head = new ListNode(1);
+  head->next = new ListNode(2);
+  head->next->next = new ListNode(3);
+  head->next->next->next = new ListNode(4);
+  //head->next->next->next->next = new ListNode(5);
 
+  reorderList(head);
+
+  while (head != NULL) {
+    LOG(INFO) << "val ====== " << head->val;
+    head = head->next;
+  }
+
+  return 0;
 }
