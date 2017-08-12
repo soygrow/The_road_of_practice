@@ -2,7 +2,7 @@
  * Copyright 2017 All Rights Reserved.
  * Author: soygrow
  *
- * tree_traversal.cc
+ * reorder_list.cc
  * ---------------------------------------------------------------------------
  * Given a singly linked list L: L 0->L 1->...¦->L n-1->L n,
  * reorder it to: L 0->L n ->L 1->L n-1->L 2->L n-2->...¦

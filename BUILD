@@ -220,3 +220,20 @@ cc_binary(
          ],
 )
 
+cc_binary(
+  name = "list_cycle",
+  srcs = ["leetcode/list_cycle.cc"],
+  deps = [
+          "//third_party/glog",
+          "//third_party/gflags",
+         ],
+)
+
+cc_binary(
+  name = "copy_list_with_random_pointer",
+  srcs = ["leetcode/copy_list_with_random_pointer.cc"],
+  deps = [
+          "//third_party/glog",
+          "//third_party/gflags",
+         ],
+)
