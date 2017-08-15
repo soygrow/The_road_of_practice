@@ -39,6 +39,7 @@ RandomListNode *copyRandomList(RandomListNode *head) {
   p = head;
   RandomListNode* new_head = p->next;
   RandomListNode* q = p->next;
+
   while (p != NULL && q!= NULL) {
     if (p->random != NULL) {
       q->random = p->random->next;
@@ -46,18 +47,23 @@ RandomListNode *copyRandomList(RandomListNode *head) {
       q->random = NULL;
     }
 
-    if (p->next == NULL || q->next == NULL) {
+    if (q == NULL || q->next == NULL) {
       break;
     }
     
-    RandomListNode* p_tmp = p->next->next;
-    RandomListNode* q_tmp = q->next->next;
+    p = p->next->next;
+    q = q->next->next;
+  }
 
-    p->next = p->next->next;
+  // Split the list node
+  p = head;
+  q = head->next;
+  while (q != NULL && q->next != NULL) {
+    p->next = q->next;
     q->next = q->next->next;
 
-    p = p_tmp;
-    q = q_tmp;
+    p = p->next;
+    q = q->next;
   }
 
   return new_head;
@@ -74,7 +80,35 @@ int main(int argc, char** argv) {
   head->next->next->next->next->random = head->next;
   head->next->next->next->random = head->next;
 
+  {
+    RandomListNode* node = head;
+    while (node != NULL) {
+      LOG(INFO) << "node-val = " << node->label;
+      if (node->random != NULL) {
+        LOG(INFO) << "node-random = " << node->random->label;
+      } else {
+        LOG(INFO) << "node-random = NULL";
+      }
+
+      node = node->next;
+    }
+  }
+
   RandomListNode* new_head = copyRandomList(head);
+
+  {
+    RandomListNode* node = new_head;
+    while (node != NULL) {
+      LOG(INFO) << "node-val = " << node->label;
+      if (node->random != NULL) {
+        LOG(INFO) << "node-random = " << node->random->label;
+      } else {
+        LOG(INFO) << "node-random = NULL";
+      }
+
+      node = node->next;
+    }
+  }
   
   return 0;
 }
